@@ -1,11 +1,12 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Survey(models.Model):
     """Survey on a specific topic"""
 
-    name = models.CharField(max_length=150)
-    publish_date = models.DateTimeField()
+    survey_name = models.CharField(max_length=150)
+    publish_date = models.DateTimeField(default=timezone.now)
     description = models.CharField(max_length=200)
     is_active = models.BooleanField(default=True)
 
@@ -14,44 +15,31 @@ class Survey(models.Model):
     #     verbose_name_plural = "surveys"
 
     def __str__(self) -> str:
-        return f"Survey '{self.name}'"
+        return f"Survey '{self.survey_name}'"
     
 
 class Question(models.Model):
     """A survey question"""
 
-    SELECT = "select"
-    SELECT_MULTIPLE = "select-multiple"
-
-    QUESTION_TYPES = [
-        (SELECT, "Select"),
-        (SELECT_MULTIPLE, "Select multiple"),
-    ]
-
     survey = models.ForeignKey(Survey, related_name='questions', on_delete=models.CASCADE)
-    text = models.CharField(max_length=200)
-    type = models.CharField(max_length=200, choices=QUESTION_TYPES, default=SELECT)
-
-    # class Meta:
-    #     verbose_name = "question"
-    #     verbose_name_plural = "questions"
+    question_title = models.CharField(max_length=200)
 
     def __str__(self) -> str:
-        return f"Question '{self.text}'"
+        return f"Question '{self.question_title}'"
     
 
 class Option(models.Model):
-    """Set of possible options for question"""
+    """Option for question"""
 
     question = models.ForeignKey(Question, related_name='options', on_delete=models.CASCADE)
-    variant = models.CharField(max_length=200)
+    option_title = models.CharField(max_length=200)
     is_correct = models.BooleanField()
 
     class Meta:
         ordering = ['?']
 
     def __str__(self) -> str:
-        return f"Option '{self.variant}' for question '{self.question}'"
+        return f"Option '{self.option_title}' for {self.question}"
 
 
 class Choice(models.Model):

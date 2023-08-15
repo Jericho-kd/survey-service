@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}List - Surveys{% endblock %}
+
+{% block content %}
+<div class="ui center aligned basic very padded segment">
+    <h1 class="ui header">Welcome {{ request.user.username }}</h1>
+</div>
+<div class="ui center aligned basic very padded segment">
+    {% if surveys %}
+    <h2 class="ui header">Your surveys</h2>
+    <table class="ui celled table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Publish Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for survey in surveys %}
+            <tr>
+                <td>{{ survey.survey_name }}</td>
+                <td>{{ survey.publish_date }}</td>
+                <td>
+                    {% if survey.is_active %}
+                    <a href="{% url 'surveys:survey-detail' survey.pk %}">
+                        <div class="ui button">view</div>
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+</div>
+{% endblock %}

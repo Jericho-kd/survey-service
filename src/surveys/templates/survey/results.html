@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Results - Surveys{% endblock %}
+
+{% block content %}
+<div class="ui center aligned basic very padded segment">
+    <h1 class="ui header">Thanks for taking the survey {{ survey.survey_name }}! Your result is 100! All done.</h1>
+    <a href="{% url 'surveys:survey-list' %}">
+        <div class="ui button">Back to surveys</div>
+    </a>
+</div>
+{% endblock %}

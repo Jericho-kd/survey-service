@@ -10,6 +10,8 @@ packages = [{include = "survey_service"}]
 python = "^3.10"
 django = "^4.2.4"
 djangorestframework = "^3.14.0"
+django-crispy-forms = "^2.0"
+crispy-bootstrap4 = "^2022.1"
 
 
 [tool.poetry.group.dev.dependencies]

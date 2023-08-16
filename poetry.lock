@@ -19,22 +19,6 @@ typing-extensions = {version = ">=4", markers = "python_version < \"3.11\""}
 tests = ["mypy (>=0.800)", "pytest", "pytest-asyncio"]
 
 [[package]]
-name = "crispy-bootstrap4"
-version = "2022.1"
-description = "Bootstrap4 template pack for django-crispy-forms"
-category = "main"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "crispy-bootstrap4-2022.1.tar.gz", hash = "sha256:f18386c4d96180c1bb1212487d6e8f5a3dd1a9bb58d3032183973d4d130b55f9"},
-    {file = "crispy_bootstrap4-2022.1-py3-none-any.whl", hash = "sha256:5241ab1dc2188c95560aa786439bcbedec7416e6b0f5a52dded82380810367ec"},
-]
-
-[package.dependencies]
-django = ">=3.2"
-django-crispy-forms = ">=1.14.0"
-
-[[package]]
 name = "django"
 version = "4.2.4"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
@@ -54,37 +38,6 @@ tzdata = {version = "*", markers = "sys_platform == \"win32\""}
 [package.extras]
 argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
-
-[[package]]
-name = "django-crispy-forms"
-version = "2.0"
-description = "Best way to have Django DRY forms"
-category = "main"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "django-crispy-forms-2.0.tar.gz", hash = "sha256:90193b068bf948d9c68449bc8260afed1a8e2afe11ee0bac8c4ebfaeb175b322"},
-    {file = "django_crispy_forms-2.0-py3-none-any.whl", hash = "sha256:d1d4e585929058a9ab3b797666ea5b69320b9ba7937f9d146d32173246a6fd13"},
-]
-
-[package.dependencies]
-django = ">=3.2"
-
-[[package]]
-name = "djangorestframework"
-version = "3.14.0"
-description = "Web APIs for Django, made easy."
-category = "main"
-optional = false
-python-versions = ">=3.6"
-files = [
-    {file = "djangorestframework-3.14.0-py3-none-any.whl", hash = "sha256:eb63f58c9f218e1a7d064d17a70751f528ed4e1d35547fdade9aaf4cd103fd08"},
-    {file = "djangorestframework-3.14.0.tar.gz", hash = "sha256:579a333e6256b09489cbe0a067e66abe55c6595d8926be6b99423786334350c8"},
-]
-
-[package.dependencies]
-django = ">=3.0"
-pytz = "*"
 
 [[package]]
 name = "mypy"
@@ -138,18 +91,6 @@ python-versions = ">=3.5"
 files = [
     {file = "mypy_extensions-1.0.0-py3-none-any.whl", hash = "sha256:4392f6c0eb8a5668a69e23d168ffa70f0be9ccfd32b5cc2d26a34ae5b844552d"},
     {file = "mypy_extensions-1.0.0.tar.gz", hash = "sha256:75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782"},
-]
-
-[[package]]
-name = "pytz"
-version = "2023.3"
-description = "World timezone definitions, modern and historical"
-category = "main"
-optional = false
-python-versions = "*"
-files = [
-    {file = "pytz-2023.3-py2.py3-none-any.whl", hash = "sha256:a151b3abb88eda1d4e34a9814df37de2a80e301e68ba0fd856fb9b46bfbbbffb"},
-    {file = "pytz-2023.3.tar.gz", hash = "sha256:1d8ce29db189191fb55338ee6d0387d82ab59f3d00eac103412d64e0ebd0c588"},
 ]
 
 [[package]]
@@ -208,4 +149,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "f0a512c69571d4494eda11c39aeba41193a1db81e13d986b59979dd28059fd8a"
+content-hash = "edf43824579774cfe9119ff9a00d1c5d74ad6cd2eca7fde3ebb1166901ff45e0"

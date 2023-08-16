@@ -20,7 +20,6 @@ class SignUpView(SuccessMessageMixin, CreateView):
   template_name = 'auth/signup.html'
   success_url = reverse_lazy('login')
   form_class = UserRegisterForm
-  success_message = "Your profile was created successfully"
 
 
 class LoginView(BaseLoginView):
@@ -70,17 +69,19 @@ def survey_detail(request: WSGIRequest, pk: int) -> HttpResponse:
     )
 
 
-def survey_start(request: WSGIRequest, pk: int) -> HttpResponse:
+@login_required
+def survey_start(request: WSGIRequest, pk: int) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
     """User start a survey"""
 
     survey = get_object_or_404(Survey, pk=pk, is_active=True)
-    if request.method == "POST":
-        sub = Choice.objects.create(survey=survey)
-        return redirect("surveys:survey-submit", survey_pk=pk, sub_pk=sub.pk)
+    # if request.method == "POST":
+    sub = Choice.objects.create(survey=survey)
+    return redirect("surveys:survey-submit", survey_pk=pk, sub_pk=sub.pk)
 
-    return render(request, "survey/start.html", {"survey": survey})
+    # return render(request, "survey/start.html", {"survey": survey})
 
 
+@login_required
 def survey_submit(request: WSGIRequest, survey_pk: int, sub_pk: int) -> HttpResponse:
     """Submit survey"""
 
@@ -101,16 +102,21 @@ def survey_submit(request: WSGIRequest, survey_pk: int, sub_pk: int) -> HttpResp
     AnswerFormSet = formset_factory(AnswerForm, extra=len(questions), formset=BaseAnswerFormSet)
 
     correct_answers = 0
+    loop = 0
     if request.method == "POST":
         formset = AnswerFormSet(request.POST, form_kwargs=form_kwargs)
         if formset.is_valid():
             with transaction.atomic():
                 for form in formset:
-                    Answer.objects.create(option_id=form.cleaned_data["option"], choice_id=sub_pk)
-                   # think about proper way to compute number of right answers
+                    Answer.objects.create(option_id=form.cleaned_data['option'], choice_id=sub_pk)
+                    if correct_choices[loop]['id'] == int(form.cleaned_data['option']):
+                        correct_answers += 1
+                    loop += 1
 
                 sub.is_complete = True
                 sub.save()
+            survey.answers.update({"overall": len(formset.cleaned_data), "correct": correct_answers, 
+                                   "percent": (correct_answers / len(formset.cleaned_data)) * 100})
             return redirect("surveys:survey-results", pk=survey_pk)
     else:
         formset = AnswerFormSet(form_kwargs=form_kwargs)
@@ -123,6 +129,7 @@ def survey_submit(request: WSGIRequest, survey_pk: int, sub_pk: int) -> HttpResp
     )
 
 
+@login_required
 def survey_results(request: WSGIRequest, pk: int) -> HttpResponse:
     """User receives results"""
 

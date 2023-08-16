@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from typing import Any
 
 
 class Survey(models.Model):
@@ -10,9 +11,7 @@ class Survey(models.Model):
     description = models.CharField(max_length=200)
     is_active = models.BooleanField(default=True)
 
-    # class Meta:
-    #     verbose_name = "survey"
-    #     verbose_name_plural = "surveys"
+    answers: dict[str, Any] = {}
 
     def __str__(self) -> str:
         return f"Survey '{self.survey_name}'"

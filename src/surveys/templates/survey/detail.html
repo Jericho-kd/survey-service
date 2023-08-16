@@ -3,10 +3,10 @@
 
 {% block content %}
 <div class="ui center aligned basic very padded segment">
-    <h1 class="ui header">{{ survey.survey_name }}</h1>
+    <h1 class="ui header">Survey name: {{ survey.survey_name }}</h1>
     <h3 class="ui header">You have {{ num_submissions }} submissions</h3>
-    <h3 class="ui header">Survey URL: <a href="{{public_url}}">{{ public_url }}</a></h3>
-    <h1 class="ui header dividing">Results</h1>
+    <!-- <h3 class="ui header">Survey URL: <a href="{{public_url}}">{{ public_url }}</a></h3> -->
+    <h1 class="ui header dividing">Questions</h1>
     {% for question in questions %}
     <div class="ui basic padded segment left aligned">
         <h4 class="ui header">
@@ -21,6 +21,9 @@
         </ul>
     </div>
     {% endfor %}
-
+    <form method="post" action="{% url 'surveys:survey-start' survey.pk %}" style="display: inline-block;">
+        {% csrf_token %}
+        <button type="submit" class="ui primary button">Start survey
+    </form>
 </div>
 {% endblock %}
